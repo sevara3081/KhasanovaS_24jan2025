@@ -1,0 +1,335 @@
+{
+	"info": {
+		"_postman_id": "42b8e0ec-b165-4175-bdd1-e8a0709afa4c",
+		"name": "Altaivita Cart Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36448241"
+	},
+	"item": [
+		{
+			"name": "Add product to cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Статус ответа 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://altaivita.ru/category/chajnye-sbory/",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "PHPSESSID={{PHPSESSID}}; CID={{S_CID}}; DIGI_CARTID={{DIGI_CARTID}};",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "product_id",
+							"value": "{{product_id}}",
+							"type": "text"
+						},
+						{
+							"key": "LANG_key",
+							"value": "ru ",
+							"type": "text"
+						},
+						{
+							"key": "S_wh",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "S_CID",
+							"value": "{{S_CID}}",
+							"type": "text"
+						},
+						{
+							"key": "S_cur_code",
+							"value": "rub",
+							"type": "text"
+						},
+						{
+							"key": "S_koef",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "S_hint_code",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "S_customerID",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BaseURL}}engine/cart/add_products_to_cart_from_preview.php",
+					"host": [
+						"{{BaseURL}}engine"
+					],
+					"path": [
+						"cart",
+						"add_products_to_cart_from_preview.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Increase Product Quantity in Cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Статус ответа 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Referer",
+						"value": "https://altaivita.ru/category/chajnye-sbory/",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "PHPSESSID={{PHPSESSID}}; CID={{S_CID}}; DIGI_CARTID={{DIGI_CARTID}};",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "product_id",
+							"value": "{{product_id}}",
+							"type": "text"
+						},
+						{
+							"key": "LANG_key",
+							"value": "ru",
+							"type": "text"
+						},
+						{
+							"key": "S_wh",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "S_CID",
+							"value": "{{S_CID}}",
+							"type": "text"
+						},
+						{
+							"key": "S_cur_code",
+							"value": "rub",
+							"type": "text"
+						},
+						{
+							"key": "S_koef",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BaseURL}}engine/cart/add_products_to_cart_from_preview.php",
+					"host": [
+						"{{BaseURL}}engine"
+					],
+					"path": [
+						"cart",
+						"add_products_to_cart_from_preview.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Product from Cart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Товар успешно удалён\", function () {\r",
+							"    let jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.status).to.eql(\"ok\");\r",
+							"    pm.expect(jsonData.sum_quantity).to.eql(\"0\");\r",
+							"    pm.expect(jsonData.products_amount).to.eql(0);\r",
+							"});\r",
+							"\r",
+							"console.log(\"Ответ API:\", pm.response.text());\r",
+							"\r",
+							"\r",
+							"pm.test(\"Статус ответа 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "PHPSESSID={{PHPSESSID}}; CID={{S_CID}}; DIGI_CARTID={{DIGI_CARTID}};",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "product_id",
+							"value": "{{product_id}}",
+							"type": "text"
+						},
+						{
+							"key": "S_CID",
+							"value": "{{S_CID}}",
+							"type": "text"
+						},
+						{
+							"key": "LANG_key",
+							"value": "ru",
+							"type": "text"
+						},
+						{
+							"key": "S_wh",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "S_cur_code",
+							"value": "rub",
+							"type": "text"
+						},
+						{
+							"key": "S_koef",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "quantity_to_delete",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "price_to_delete",
+							"value": "1200",
+							"type": "text"
+						},
+						{
+							"key": "type_items",
+							"value": "product",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BaseURL}}engine/cart/delete_products_from_cart_preview.php",
+					"host": [
+						"{{BaseURL}}engine"
+					],
+					"path": [
+						"cart",
+						"delete_products_from_cart_preview.php"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseURL",
+			"value": "https://altaivita.ru/",
+			"type": "string"
+		},
+		{
+			"key": "PHPSESSID",
+			"value": "47g0mhnng8b8s8rcabkfgmc4g5",
+			"type": "string"
+		},
+		{
+			"key": "S_CID",
+			"value": "5a4d413ab31c2e81d08eb1a390c4ba87",
+			"type": "string"
+		},
+		{
+			"key": "DIGI_CARTID",
+			"value": "99622489045",
+			"type": "string"
+		},
+		{
+			"key": "product_id",
+			"value": "1280",
+			"type": "string"
+		}
+	]
+}
